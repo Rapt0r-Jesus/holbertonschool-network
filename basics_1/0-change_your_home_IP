@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
+# This script changes the home IP address by restarting the network interface.
+[ "$EUID" -ne 0 ] && echo "Please run as root" && exit 1
 
-# Change localhost to 127.0.0.2
-sudo sed -i 's/^127\.0\.0\.1[[:space:]]\+localhost/127.0.0.2 localhost/' /etc/hosts
-
-# Force facebook.com to resolve to 8.8.8.8
-sudo sed -i '/facebook.com/d' /etc/hosts
-echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts > /dev/null
+echo "127.0.0.2 localhost" > /etc/hosts
+echo "8.8.8.8 facebook.com" >> /etc/hosts
